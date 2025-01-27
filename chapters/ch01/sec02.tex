@@ -1,0 +1,194 @@
+\section{Espaço amostral e evento}
+
+\begin{definition}
+    \textbf{Espaço amostral} de um expetimento aleatório é o conjunto de
+    todos os possíveis resultados.
+\end{definition}
+
+\begin{notation}
+    $S$ ou $\Omega$.
+\end{notation}
+
+\begin{example}\label{exp:ch01-espacoamostral-1}
+    Lançamento de um dado de seis faces e observação da face
+    exibida para cima.
+
+    \begin{align*}
+        S &= \{1,2,3,4,5,6\}
+    \end{align*}
+\end{example}
+
+\begin{example}\label{exp:ch01-espacoamostral-2}
+    Retirada de uma carta de um baralho de 52 cartas.
+
+    \begin{align*}
+        S &= \{1,2, \cdots ,52\}
+    \end{align*}
+\end{example}
+
+\begin{example}\label{exp:ch01-espacoamostral-3}
+    Ocorrência de chuva no dia seguinte.
+
+    \begin{align*}
+        S &= \{\text{sim}, \text{não}\} \\
+        S &= \{1, 0\} \\
+    \end{align*}
+\end{example}
+
+\begin{example}\label{exp:ch01-espacoamostral-4}
+    Realzação de um sorteio da Mega Sena.
+
+    \begin{align*}
+        S = \{&(d_1, d_2, d_3, d_4, d_5, d_6): \\
+            & d_j \in \{1, 2, \cdots, 60 \} \text{ para } j = 1, 2, \cdots, 6, \\
+            & d_j \neq d_k \text{ para } j\neq k,\ 
+                j = 1, 2, \cdots, 6,\ k = 1, 2, \cdots, 6
+        \}
+    \end{align*}
+\end{example}
+
+\begin{obs}
+    Nos \cref{exp:ch01-espacoamostral-1,exp:ch01-espacoamostral-2,exp:ch01-espacoamostral-3,exp:ch01-espacoamostral-4}, o conjunto $S$ é \textit{finito}.
+\end{obs}
+
+\begin{example}\label{exp:ch01-espacoamostral-5}
+    Uma moeda é lançada até que seja obtido o primeiro resultado "cara".
+    
+    Resultados: \begin{itemize}
+        \item cara: $C$
+        \item coroa: $\overline{C}$
+    \end{itemize}
+    
+    Temos: \begin{align*}
+        S &= \{C, \overline{C}C, \overline{C}\overline{C}C, \cdots \}
+    \end{align*}
+
+    \begin{obs}
+        Note que o conjunto $S$ é \textit{infinito enumerável}.
+    \end{obs}
+\end{example}
+
+\begin{example}\label{exp:ch01-espacoamostral-6}
+    Uma lâmpada é deixada ligada até queimar, e o tempo é registrado.
+
+    \begin{align*}
+        S &= \left[0, +\infty\right)
+    \end{align*}
+\end{example}
+
+\begin{example}\label{exp:ch01-espacoamostral-7}
+    Resultado de um eletrocardiograma de um indivíduo
+    em um intervalo de $T$ minutos.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis x line shift=.5,
+                axis y line=middle,
+                xmin=-2, xmax=25,
+                ymin=-1, ymax=1.5,
+                xtick={0, 40},
+                ytick={-10, 10},
+                xlabel={tempo},
+                ylabel={sinal},
+                y label style={anchor=south},
+                x label style={anchor=west},
+            ]
+            \addplot+
+            table[col sep=comma, x=t, y=signal] {chapters/eletro.dat};
+            
+            \addplot[mark=none, dashed, black] coordinates {(0, 0) (21, 0)};
+            \addplot[mark=none, dashed, black] coordinates {(0, 1) (21, 1)};
+
+
+            \node[anchor=north east] at (0,-0.5) {$O$};
+            \node[anchor=north] at (20,-0.5) {$T$};
+            
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{align*}
+        S &= \{x: x \text{ é uma função positiva no intervalo } [0, T] \}
+    \end{align*}
+
+    Os elementos de $S$ são funções $x(t)$, $t \in [0, T]$.
+\end{example}
+
+\begin{example}\label{exp:ch01-espacoamostral-8}
+    Resultado de um tiro a um alvo circular de raio igual a $R$
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis equal,
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-1.25, xmax=1.25,
+                ymin=-1.25, ymax=1.25,
+                xtick={0, 40},
+                ytick={-10, 10},
+                xlabel=$x$,
+                ylabel=$y$,
+                y label style={anchor=south},
+                x label style={anchor=west},
+            ]
+            \addplot+[only marks]
+            table[col sep=comma] {chapters/target.dat};
+
+            \pgfmathsetmacro{\R}{1}
+            \coordinate (O) at (0, 0);
+            \coordinate (P) at ({-\R*cos(45)}, {\R*sin(45)});
+
+            \pgfmathsetmacro{\xA}{0.629203}
+            \pgfmathsetmacro{\yA}{0.594032}
+            \coordinate (A) at (\xA, \yA);
+            \coordinate (PxA) at (\xA, 0);
+            \coordinate (PyA) at (0, \yA);
+
+            \draw (axis cs:0,0) circle [radius=\R];
+
+            \draw[->, thin] (O) -- (P) {};
+            \node[anchor=north east] at ($(O)!0.75!(P)$) {$R$};
+
+            \addplot[dashed, red]
+                coordinates {(0, 0.594032) (0.629203, 0.594032)};
+            \addplot[dashed, red]
+                coordinates {(0.629203, 0) (0.629203, 0.594032)};
+
+            \addplot[
+                only marks, 
+                red,
+                mark options={scale=2}
+            ] coordinates {(\xA, \yA)};
+
+            \node[anchor=north, red] at (PxA) {$x$};
+            \node[anchor=east, red] at (PyA) {$y$};
+            
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{align*}
+        S = \{(x, y): 0 \leq x^2 + y^2 \leq R^2\}
+    \end{align*}
+\end{example}
+
+\begin{definition}
+    \textbf{Evento} (ou \textbf{evento aleatório}) é todo resultado ou 
+    subconjunto de resultados
+    de um experimento aleatório.
+
+    Um \textbf{evento simples} é um evento com apenas um elemento de $S$
+\end{definition}
+
+\begin{example}\label{exp:ch01:evento-1}
+    No \cref{exp:ch01-espacoamostral-1}, $\{5\}$ é um evento simples.
+    "O resultado é um número par" não é um evento simples; é dado
+    por $\{2, 4, 6\}$.
+\end{example}

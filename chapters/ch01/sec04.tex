@@ -1,0 +1,144 @@
+\section{Definições de probabilidade}
+
+O conceito de probabilidade evoluiu desde a Idade Média.
+Temos contribuições de Galileu, Pascal, Fermat, Cardano, Laplace,
+Gauss, de Moivre, entre outros. Um dos conceitos iniciais é o
+de "eventos igualmente possíveis".
+
+\begin{definition}[Definição Clássica]
+    Consideramos um espaço amostral $S$ com $N$ eventos simples
+    igualmente possíveis. Seja $A$ um evento de $S$ composto por
+    $m$ eventos simples. A probabilidade do evento $A$, denotada por
+    $\Prob(A)$, é definida como
+    \begin{align}\label{eq:ch01-def-classica}
+        \Prob(A) &= \frac{m}{N}
+    \end{align}
+\end{definition}
+
+\begin{example}
+    Com uma única aposta de seis dezenas, qual é a probabilidade
+    de acerto de uma quina em um sorteio da Mega Sena?
+    
+    \bigskip
+    O expaço amostral $S$ já foi visto (\cref{exp:ch01-espacoamostral-4}).
+    
+    Temos que $N = \binom{60}{6}$.
+    
+    \medskip
+    O evento A representa o acerto de uma quina (acerto de cinco
+    das 6 dezenas sorteadas e erro da sexta dezena)
+
+    Temos $m = \binom{6}{5} \cdot \binom{54}{1}$
+
+    Logo:
+    \begin{align*}
+        \Prob(A)
+            &= \frac{m}{N} \\
+            &= \frac{\binom{6}{5} \cdot \binom{54}{1}}{\binom{60}{6}} \\
+            &= \frac{6 \cdot 54}
+                {50063860} \\
+            &= 6.472 \cdot 10^{-6}
+    \end{align*}
+\end{example}
+
+\begin{lemma}
+    Nas condições da definição clássica, temos:
+    \begin{enumerate}
+        \item $\Prob(A) \geq 0$ para todo $A \in S$;
+        \item Se $A$ e $B$ são mutuamente exclusivos, então
+            $\Prob(A \cup B) = \Prob(A) + \Prob(B)$; e
+        \item $\Prob(S) = 1$
+    \end{enumerate}
+\end{lemma}
+
+\begin{definition}[Definição Fequentista]
+    O experimento é repetido $n$ vezes nas mesmas condições.
+    Seja $n(A)$ o número de vezes em que o event $A$ ocorre
+    nas n repetições.
+
+    Definimos a frequência relativa do evento $A$, denotada
+    por $f_{n, A}$, como
+    \begin{align}
+        f_{n, A} &= \frac{n(A)}{n} \label{eq:ch01-def-frequentista}
+    \end{align}
+\end{definition}
+
+\begin{example}
+    Buffon (séc. \romanum{18}) realizou 4040 lançamentos de uma moeda
+    e observou a ocorrência de 2048 resultados "cara". Assim:
+    \begin{align*}
+        f_{n, A} &= \frac{n(A)}{n} \\
+        &= \frac{2048}{4040} \\
+        &= 0.5069
+    \end{align*}
+\end{example}
+
+Quando $n \to \infty$, $f_{n, A}$ deve estabilizar em torno de
+um número.
+
+Para valores "grandes"\ de $n$, a probabilidade do evento $A$ é
+aproximadamente dada por $f_{n, A}$.
+
+\begin{lemma}
+    A frequência relativa $f_{n, A}$ tem as seguintes propriedades:
+    \begin{enumerate}
+        \item para todo evento $A$, $0 \leq f_{n, A} \leq 1$;
+        \item se $A$ e $B$ são dois eventos de $S$ mutuamente exclusivos,
+            então $f_{n, A \cup B} = f_{n,A} + f_{n,B}$; e
+        \item $f_{n,S} = 1$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{definition}[Definição Subjetiva]
+    A probabilidade de um evento é a medida da crença que o indivíduo
+    tem sobre a ocorrência do evento.
+
+    Diferentes indivíduos podem atribuir probabilidades diferentes
+    para um mesmo evento.
+\end{definition}
+
+\begin{definition}[Definição Axiomática]
+    formulada por Kolmogorov (1931).
+
+    $S$ denota o espaço amostral do experimento.
+    
+    $\F$ denota uma classe de conjuntos (eventos) de $S$.
+
+    \begin{obs}
+        Nem sempre a classe $\F$ representa todos os possíveis subconjuntos
+        (ou eventos) de $S$, que é chamado de conjunto das partes de $S$,
+        denotado por $\Power(S)$.
+
+        Se $S$ é um intervalo, a classe $\F$ \textbf{não} é $\Power(S)$.
+        Neste caso, $\Power(S)$ é um conjunto infinito não enumerável.
+    \end{obs}
+\end{definition}
+
+\begin{definition}\label{def:axiomatica}
+    Probabilidade é uma função definida nos elementos da classe $\F$
+    satisfazendo:
+    \begin{enumerate}
+        \item \label{it:ch01-axioma-1} $\Prob(A) \geq 0$ para todo $A \in \F$;
+        \item \label{it:ch01-axioma-2} Se $A_1, A_2, \cdots$ é uma sequência de eventos
+        mutuamente exclusivos de $\F$, então \begin{align*}
+            \Prob\left(\bigcup_{i=1}^\infty A_i\right)
+                &= \sum_{i=1}^\infty \Prob(A_i);
+        \end{align*} e
+        \item \label{it:ch01-axioma-3}$\Prob(S) = 1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{obs}
+    As definições clássica e frequentista obedecem à definição axiomática.
+\end{obs}
+
+Se $S$ for enumerável (finito ou infinito), a classe $\F$ é dada por
+$\F = \Power(S)$. Representamos $S$ por $S = \{\omega_1, \omega_2, \cdots\}$.
+Associamos a cada $\omega_i \in S$ uma probabilidade $\Prob(\omega_i) \geq 0$
+e $\sum_{i = 1}^\infty \Prob(\omega_i) = 1 = \Prob(S)$. Neste caso, definimos
+\begin{align*}
+    \Prob(A) &= \sum_{i: \omega_i \in A} \Prob(\omega_i) \\
+    &= \sum_{\omega \in A} \Prob(\omega)
+\end{align*}
+
+Esta definição está de acodo com a definição axiomática.

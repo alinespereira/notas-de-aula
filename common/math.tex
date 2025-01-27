@@ -1,0 +1,71 @@
+\renewcommand\qedsymbol{$\blacksquare$}
+\allowdisplaybreaks
+
+\everymath{\displaystyle}
+
+% Euler's number
+\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Nat}{\mathbb{N}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+
+\DeclareMathOperator{\sen}{sen}
+
+\DeclareMathOperator{\area}{\acute{a}rea}
+% Indicator function
+\DeclareMathOperator{\Ind}{\mathbb{I}}
+
+\newcommand{\wrt}{\,\mathrm{d}}
+
+\let\upto\nearrow
+\let\downto\searrow
+\newcommand{\verteq}{\rotatebox{90}{$\,=$}}
+
+% \renewenvironment{proof}{{\small{\bfseries Demonstração.}}}{}
+\renewcommand\qedsymbol{$\blacksquare$}
+\let\iff\Leftrightarrow
+
+% Reduce fractions
+\usepackage{xintgcd,xintfrac}
+\newcommand*\reducedfrac[2]{
+    \begingroup
+        \pgfmathparse{#1}
+        \edef\p{\pgfmathresult}
+        \pgfmathparse{#2}
+        \edef\q{\pgfmathresult}
+        \edef\gcd{\xintGCD{\p}{\q}}%
+        \frac{\xintNum{\xintDiv{\p}{\gcd}}}{\xintNum{\xintDiv{\q}{\gcd}}}%
+    \endgroup
+}
+
+% Binomial number calculator
+\usepackage{xintexpr}
+\newcommand*\binomeval[2]{
+    \xinttheexpr subs(subs(x!//y!//(x-y)!,y=#2), x=#1)\relax
+}
+
+\newcommand*\evaltoprec[2]{
+    \pgfkeys{/pgf/fpu}
+    \pgfmathparse{#1}
+    \pgfmathprintnumberto[fixed,precision=#2]{\pgfmathresult}{\value}
+    \value
+    \pgfkeys{/pgf/fpu=false}
+}
+
+\newcommand*\evaltoprecsci[2]{
+    \pgfkeys{/pgf/fpu}
+    \pgfmathparse{#1}
+    \pgfmathprintnumberto[sci,precision=#2]{\pgfmathresult}{\value}
+    \value
+    \pgfkeys{/pgf/fpu=false}
+}
+
+\newcommand{\tikzarc}[1]{%
+    \tikzmarknode{a}{#1}
+    \begin{tikzpicture}[overlay,remember picture]
+        \draw ([yshift=1pt]a.north west)
+            to[bend left=20] ([yshift=1pt]a.north east);
+    \end{tikzpicture}%
+}

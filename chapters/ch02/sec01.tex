@@ -1,0 +1,111 @@
+\section{Variáveis aleatórias}
+
+\begin{example}[Lancamento de duas moedas]\label{exp:ch02-va-moeda}
+    Registramos o número de resultados "cara".
+
+    Resultados: cara ($C$) ou coroa ($\overline{C}$).
+
+    \begin{center}
+        \begin{tabular}{cc}
+            \toprule
+            Evento                          & Número de caras \\
+            \midrule
+            $\{C,C\}$                       & 2 \\
+            $\{C,\overline{C}\}$            & 1 \\
+            $\{\overline{C},C\}$            & 1 \\
+            $\{\overline{C},\overline{C}\}$ & 0 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{definition}
+    Uma \textbf{variável aleatória} é uma função
+    definida no espaço amostral e com valores reais.
+    \begin{align*}
+        X: S \to \R
+    \end{align*}
+    \begin{notation}
+        Letras maiúsculas, últimas do alfabeto (geralmente).
+    \end{notation}
+\end{definition}
+
+\begin{example}[Continuação do \cref{exp:ch02-va-moeda}]
+    \begin{align*}
+        X(\{C,C\})                       &= 2 \\
+        X(\{C,\overline{C}\})            &=
+        X(\{\overline{C},C\})            = 1 \\
+        X(\{\overline{C},\overline{C}\}) &= 0
+    \end{align*}
+\end{example}
+
+\begin{example}\label{exp:ch02-va-pedagio}
+    $X$ representa o número de automóveis que passam
+    por uma praça de pedágio no intervalo de 1 hora.
+
+    Temos $X \in \{0, 1, 2, \cdots\}$.
+\end{example}
+
+\begin{example}\label{exp:ch02-va-lampada}
+    $X$ representa o tempo de vida de uma lãmpada, em horas.
+
+    Temos $X \in \left[0, +\infty\right)$.
+\end{example}
+
+\begin{example}[Continuação do \cref{exp:ch02-va-moeda}]
+    Temos $X \in \{0, 1, 2\}$.
+\end{example}
+
+\begin{example}\label{exp:ch02-va-desoerdicio}
+    $X$ representa o desperdício de refeição em um restaurante
+    "bandejão", em gramas.
+
+    Temos $X \in \{0\} \cup \left(0, +\infty\right)$.
+
+    \begin{obs}
+        A notação acima deixa o zero separado
+        porque a variável aleatória $X$ tem um comportamento
+        diferente neste valor.
+    \end{obs}
+\end{example}
+
+\begin{definition}
+    \begin{enumerate}
+        \item \label{it:ch02-def-discretas}
+        As variáveis aleatórias que assumem valores em
+        um conjunto enumerável (finito ou infinito) são chamadas
+        de \textbf{discretas}.
+        \item \label{it:ch02-def-contínuas}
+        As variáveis aleatórias que assumem valores em
+        um intervalo são chamadas de \textbf{contínuas}.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}[Continuação do \cref{exp:ch02-va-moeda}]
+    Calculamos:
+    \begin{align*}
+        \Prob(X = 0) &= \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4} \\
+        \Prob(X = 1) &= \frac{1}{4} + \frac{1}{4} = \frac{1}{2} \\
+        \Prob(X = 2) &= \frac{1}{4}
+    \end{align*}
+\end{example}
+
+\begin{example}
+    $X \in \{0, 1, 2, \cdots\}$
+    \begin{align*}
+        \Prob(X = x) &= \frac{\e^{-2}\cdot 2^x}{x!}
+    \end{align*}
+
+    Para atribuir probabilidades aos valores $x \in \{0, 1, 2, \cdots\}$,
+    devemos ter $0 < \Prob(X = x) < 1$ e $\sum_{x=1}^n \Prob(X = x) = 1$.
+\end{example}
+
+Nos \cref{exp:ch02-va-moeda,exp:ch02-va-pedagio}, temos variáveis aleatórias
+\textbf{discretas}.
+
+No \cref{exp:ch02-va-lampada}, a variável aleatória é \textbf{contínua}.
+
+No \cref{exp:ch02-va-desoerdicio}, a variável aleatória apresenta
+comportamento de uma variável aleatória \textbf{discreta} quando $X \in \{0\}$
+e \textbf{contínua} quando $X \in \left(0, +\infty\right)$. A este tipo de
+compor tamento, dá-se o nome de \textbf{mistura} de variáveis aleatórias.

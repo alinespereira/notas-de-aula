@@ -1,0 +1,20 @@
+\usepackage{fancyhdr}
+
+\setlength{\headheight}{36pt}
+
+\renewcommand{\chaptermark}[1]{%
+\markboth{#1}{}}
+
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+\pagestyle{fancy}
+\fancyhead[O]{}
+\fancyhead[LO]{\thesubtitle}
+\fancyhead[RO]{\thetitle}
+% \fancyhead[LE]{\leftmark}
+% \fancyhead[RE]{\rightmark}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+% \lhead{Aline da Silva Pereira}
+% \rhead{SME0800 -- Probabilidade I \\ Notas de Aula}
+% \cfoot{\thepage}

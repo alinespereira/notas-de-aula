@@ -1,0 +1,299 @@
+\section{Distribuição conjunta}
+
+\begin{definition}[Função de probabilidade conjunta]
+    \label{def:ch03-fp-2d}
+    A \textbf{função de probabilidade} (ou
+    \textbf{função massa de probabilidade}) de um vetor aleatório
+    $(X, Y)$ é uma função que atribui probabilidades aos 
+    valores de $X$ e $Y$ satisfazendo
+    \begin{enumerate}
+        \item $0 \leq \Prob(X = x, Y = y) \leq 1$, e
+        \item $\sum_{x \in A_X} \sum_{y \in A_Y}
+        \leq \Prob(X = x, Y = y) = 1$,
+    \end{enumerate}
+    sendo que $A_X$ e $A_Y$ são os conjuntos de valores
+    de $X$ e $Y$.
+    \begin{obs}
+        $A_X$ e $A_Y$ são finitos ou infinitos enumeráveis.
+    \end{obs}
+
+    A função de probabilidade de $(X, Y)$ é chamada de
+    \textbf{conjunta}.
+\end{definition}
+
+\begin{example}[Continuação do \Cref{exp:ch03-dois-dados}]
+    Temos que
+    \begin{align*}
+        A_X &= \{2, 3, \cdots, 12\},\ \text{e} \\
+        A_Y &= \{1, 2,\cdots, 6\}.
+    \end{align*}
+
+    A função de probabilidade conjunta do vetor $(X, Y)$ é:
+    \begin{center}
+        \begin{tabular}{cccccccccccc}
+            \toprule
+            \multirow{2}{*}{$Y$} & \multicolumn{11}{c}{$X$} \\
+            \cmidrule{2-12}
+             & 2               & 3 & 4 & 5 & 6 & 7 
+                & 8 & 9 & 10 & 11 & 12 \\
+            \midrule
+            1 & $\sfrac{1}{36}$ & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ 
+            & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ 
+            & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\cdot$ & $\cdot$ \\
+            2 & $\cdot$ & $\cdot$ & $\sfrac{1}{36}$
+            & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ & $\sfrac{2}{36}$
+            & $\sfrac{2}{36}$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ \\
+            3 & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\sfrac{1}{36}$ & $\sfrac{2}{36}$
+            & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ 
+            & $\cdot$ & $\cdot$ & $\cdot$ \\
+            4 & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\sfrac{1}{36}$ & $\sfrac{2}{36}$
+            & $\sfrac{2}{36}$ & $\cdot$ & $\cdot$ \\
+            5 & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ & $\sfrac{1}{36}$ 
+            & $\sfrac{2}{36}$ & $\cdot$ \\
+            6 & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\sfrac{1}{36}$ \\
+            \bottomrule
+            & & & & & & & & & & Total & 1 \\
+            \cmidrule{11-12}
+        \end{tabular}
+    \end{center}
+
+    Na tabela, as entradas com probabilidade zero foram
+    preenchidas por $\cdot$.
+\end{example}
+
+\begin{definition}[Função densidade conjunta]
+    \label{def:ch03-fdp-2d}
+    A \textbf{função densidade conjunta} é uma função 
+    $f(x, y)$ satisfazendo:
+    \begin{enumerate}
+        \item $f(x, y) \geq 0$
+        \item $\int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty}
+        f(x, y) \wrt x \wrt y = 1$
+    \end{enumerate}
+\end{definition}
+
+Considere $B$ um subconjunto do $\R^2$:
+\begin{enumerate}
+    \item Se $(X, Y)$ é um vetor aleatório \textbf{contínuo}:
+    \begin{align*}
+        \Prob(B) &= {\iint}_B f(x, y) \wrt x \wrt y
+    \end{align*}
+    \item Se $(X, Y)$ é um vetor aleatório \textbf{discreto}:
+    \begin{align*}
+        \Prob(B) &= \underset{\substack{(x,y)\in B\\x \in A_X, y\in A_Y}}{\sum\sum}
+        \Prob(X = x, Y = y)
+    \end{align*}
+\end{enumerate}
+
+\begin{example}
+    Considere o círculo de raio na origem e raio de comprimento $R$.
+    Apresente uma função densidade que tenha valor igual a 0
+    para pontos não pertencentes ao círculo.
+
+    Temos
+    \begin{align*}
+        f(x, y) &= \begin{cases}
+            \frac{1}{\pi R^2}, & \text{se } x^2 + y^2 \leq R^2 \\
+            \\
+            0, & \text{se } x^2 + y^2 > R^2
+        \end{cases}
+    \end{align*}
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-4, xmax=4,
+                ymin=-4, ymax=4,
+                xtick={3},
+                ytick={3},
+                xticklabels={$R$},
+                yticklabels={$R$},
+                xlabel={$x$},
+                ylabel={$y$},
+                x label style={anchor=west},
+                y label style={anchor=south},
+                x tick label style={anchor=north west},
+                y tick label style={anchor=south east},
+                legend style={fill=none,draw=none},
+                unit vector ratio={1 1},
+            ]
+
+            \draw[thick] (0, 0) circle (3);
+
+            \draw[ultra thick, blue,
+                pattern=north west lines, pattern color=blue,
+                ]
+                (0, 0) ellipse (1 and 2);
+
+            \node[blue, anchor=south east] at (-1, 0) {$B$};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{align*}
+        \Prob(B) &= \iint_B f(x, y) \wrt x \wrt y \\
+        &= \iint_B \frac{1}{\pi R^2} \wrt x \wrt y \\
+        &= \frac{1}{\pi R^2} \iint_B  \wrt x \wrt y \\
+        &= \frac{1}{\pi R^2} \area(B) \\
+        &= \frac{\area(B)}{\pi R^2}
+    \end{align*}
+
+    Note que a região $B$ está totalmente contida no círculo,
+    portanto a função densidade é não nula em todos os pontos de $B$.
+    Neste exemplo especificamente, a densidade é constante.
+\end{example}
+
+\begin{example}\label{exp:ch03-fdp}
+    A função densidade de $(X, Y)$ é dada por
+    \begin{align*}
+        f(x, y) &= \begin{cases}
+            x^2 + \frac{xy}{3}, 
+                &\text{se } 0 \leq x \leq 1 \text{ e } 0 \leq y \leq 2, \\
+            0, &\text{caso contrário}
+        \end{cases}
+    \end{align*}
+
+    Note que $f(x, y) \ge 0$.
+    Calculamos
+    \begin{align*}
+        \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty}
+            f(x, y) \wrt x \wrt y
+        &= \int_0^1 \int_0^2 x^2 + \frac{xy}{3} \wrt y \wrt x \\
+        &= \int_0^1 \left[
+            x^2y + \frac{xy^2}{6}
+        \right]_{y=0}^{y=2} \wrt x \\
+        &= \int_0^1 2x^2 + \frac{4x}{6} \wrt x \\
+        &= \left[\frac{2x^3}{3} + \frac{4x^2}{12}\right]_{x=0}^{x=1} \\
+        &= \frac{2}{3} + \frac{4}{12} \\
+        &= \frac{2}{3} + \frac{1}{3} = 1
+    \end{align*}
+    Com isto, verificamos que $f(x, y)$ é de fato uma
+    função densidade conjunta.
+
+    Considere
+    \begin{align*}
+        B &= \{(x,y) : x + y \ge 1\}
+    \end{align*}
+    e calcule $\Prob(B)$.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-2, xmax=2,
+                ymin=-1.5, ymax=2.5,
+                xtick={1},
+                ytick={1, 2},
+                xlabel={$x$},
+                ylabel={$y$},
+                x label style={anchor=west},
+                y label style={anchor=south},
+                legend style={fill=none,draw=none},
+                unit vector ratio={1 1},
+            ]
+
+            \draw[name path=x] (0, 2) -- (1, 2);
+            \draw[thick, fill=gray!5, opacity=0.5] (0, 0) rectangle (1, 2);
+
+            \draw[name path=b, ultra thick, blue] (0,1) -- (1,0);
+
+            \draw[blue, dotted, thick] (-1, 2) -- (2, -1);
+
+
+            \tikzfillbetween[of=x and b]
+                {pattern=north west lines, pattern color=blue};
+
+
+            \node[blue] at (.55, 1.2) {$B$};
+            \node at (.33, .33) {$\stcomp{B}$};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    Usando diretamente a região $B$ como região de integração,
+    temos:
+    \begin{align*}
+        \Prob(B) &= 
+            \int_0^1
+                \int_{1-x}^2 x^2 + \frac{xy}{3} \wrt y
+            \wrt x \\
+        &= \int_0^1
+            \left[x^2 y + \frac{xy^2}{6}\right]_{y=1-x}^{y=2}
+        \wrt x \\
+        &= \int_0^1
+            - x^2 (1 - x) + 2 x^2 - \frac{x (1 - x)^2}{6} + \frac{2 x}{3}
+        \wrt x \\
+        &= \int_0^1
+            \frac{5 x^{3}}{6} + \frac{4 x^{2}}{3} + \frac{x}{2}
+        \wrt x \\
+        &= \left[
+            \frac{5 x^{4}}{24} + \frac{4 x^{3}}{9} + \frac{x^{2}}{4}
+        \right]_{x=0}^{x=1} \\
+        &= \frac{65}{72}
+    \end{align*}
+
+    Outra possibilidade seria utilizarmos a probabilidade
+    do evento complementar ao evento definido pela região $B$,
+    e então usar o fato de que $\Prob(B) = 1 - \Prob(\stcomp{B})$.
+    \begin{align*}
+        \Prob(\stcomp{B}) &= 
+            \int_0^1
+                \int_0^{1-x} x^2 + \frac{xy}{3} \wrt y
+            \wrt x \\
+        &= \int_0^1
+            \left[x^2 y + \frac{xy^2}{6}\right]_0^{1-x}
+        \wrt x \\
+        &= \int_0^1
+            x^2 (1 - x) + \frac{x \left(1 - x\right)^{2}}{6}
+        \wrt x \\
+        &= \int_0^1
+            - \frac{5 x^{3}}{6} + \frac{2 x^{2}}{3} + \frac{x}{6}
+        \wrt x \\
+        &= \left[
+            - \frac{5 x^{4}}{24} + \frac{2 x^{3}}{9} + \frac{x^{2}}{12}
+        \right]_{x=0}^{x=1} \\
+        &= \frac{7}{72}
+        \\
+        \implies \Prob(B) &= 1 - \Prob(\stcomp{B}) \\
+        &= 1 - \frac{7}{72} = \frac{65}{72}
+    \end{align*}
+
+    Como esperado, o mesmo resultado foi obtido em ambos os cálculos,
+    apesar da segunda maneira ser pouco mais simples.
+\end{example}
+
+\begin{definition}
+    A \textbf{função distribuição acumulada} do vetor $(X, Y)$
+    é definida como
+    \begin{align}
+        F(x, y) &= \Prob(-\infty < X \le x, -\infty < Y \le y).
+        \label{eq:ch03-fda-2d}
+    \end{align}
+    
+    Se o vetor for contínuo:
+    \begin{align}
+        \diffp{F(x, y)}{xy} &= f(x, y) \label{eq:ch03-fdp-diff-fda}
+    \end{align}
+    e
+    \begin{align}
+        F(x, y) &= \int_{-\infty}^y \int_{-\infty}^x
+            f(x, y) \wrt x \wrt y \label{eq:ch03-fda-int-fdp}
+    \end{align}
+\end{definition}

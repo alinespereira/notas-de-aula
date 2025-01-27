@@ -1,0 +1,521 @@
+\section{Distribuições marginais e condicionais}
+
+Em um vetor bidimensional $(X, Y)$, as distribuições de $X$ e $Y$,
+em separado, são chamadas de \textbf{distribuições marginais}.
+
+No caso \textbf{contínuo}, as funções densidade marginais
+são denotadas por $f_X(x)$ e $f_Y(y)$. Temos:
+\begin{align}
+    f_X(x) &= \int_{-\infty}^{+\infty} f(x, y) \wrt y
+        \label{eq:ch03-marginal-x-continua} \\
+    f_Y(y) &= \int_{-\infty}^{+\infty} f(x, y) \wrt x
+        \label{eq:ch03-marginal-y-continua}
+\end{align}
+
+No caso \textbf{discreto}, temos:
+\begin{align}
+    \Prob(X = x) &= \sum_{y \in A_Y} \Prob(X = x, Y = y),\ x \in A_X
+        \label{eq:ch03-marginal-x-discreta} \\
+    \Prob(Y = y) &= \sum_{x \in A_X} \Prob(X = x, Y = y),\ y \in A_Y
+        \label{eq:ch03-marginal-y-discreta}
+\end{align}
+
+Em termos de \textbf{distribuição acumulada} (casos discreto e contínuo),
+temos:
+\begin{align}
+    F_X(x) &= \Prob(-\infty < X \le x) = \lim_{y\to \infty} F(x, y) 
+        \label{eq:ch03-marginal-x-acumulada} \\
+    F_Y(y) &= \Prob(-\infty < Y \le y) = \lim_{x\to \infty} F(x, y) 
+        \label{eq:ch03-marginal-y-acumulada}
+\end{align}
+
+\begin{obs}
+    Na \cref{eq:ch03-marginal-x-acumulada}, note que:
+    \begin{align*}
+        \lim_{y\to \infty} F(x, y) 
+        &\overset{\text{\Cref{eq:ch03-fda-2d}}}{=}
+        \lim_{y\to \infty} \Prob(-\infty < X \le x, -\infty < Y \le y) \\
+        &= \Prob(-\infty < X \le x) \\
+        &= F_X(x)
+    \end{align*}
+
+    O resultado é análogo para a \cref{eq:ch03-marginal-y-acumulada}.
+\end{obs}
+
+\begin{obs}
+    Note que:
+    \begin{align*}
+        \int_{-\infty}^{+\infty} f_X(x) \wrt x
+        &\overset{\text{\Cref{eq:ch03-marginal-x-continua}}}{=}
+            \int_{-\infty}^{+\infty}
+                \underbrace{\int_{-\infty}^{+\infty} f(x, y) \wrt y}_{f_X(x)}
+            \wrt x = 1
+    \end{align*}
+    pois $f(x, y)$ é um função densidade.
+\end{obs}
+
+\begin{notation}
+    Quando falamos de distribuições conjuntas:
+    \begin{itemize}
+        \item $f(x, y)$: função densidade conjunta;
+        \item $p(x, y)$: função massa de probabilidade conjunta.
+    \end{itemize}
+    em que
+    \begin{align*}
+        p(x, y) &= \Prob(X = x, Y = y)
+    \end{align*}
+\end{notation}
+
+\begin{example}[Continuação do \cref{exp:ch03-dois-dados}]
+    As distribuições marginais são:
+    \begin{center}
+        \begin{tabular}{cccccccccccccc}
+            \cmidrule[\heavyrulewidth]{1-13}
+            \multirow{2}{*}{$Y$} & \multicolumn{11}{c}{$X$} 
+            & \multirow{2}{*}{Total}
+            & \multirow{2}{*}{\shortstack{Marginal\\ de $Y$}}\\
+            \cmidrule{2-12}
+             & 2 & 3 & 4 & 5 & 6 & 7 
+                & 8 & 9 & 10 & 11 & 12 & & \\
+            \cmidrule{1-13}
+            1 & $\sfrac{1}{36}$ & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ 
+            & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ 
+            & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\cdot$ & $\cdot$
+            & $\sfrac{11}{36}$& $\Prob(Y = 1)$ \\
+            2 & $\cdot$ & $\cdot$ & $\sfrac{1}{36}$
+            & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ & $\sfrac{2}{36}$
+            & $\sfrac{2}{36}$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$
+            & $\sfrac{9}{36}$ & $\Prob(Y = 2)$ \\
+            3 & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\sfrac{1}{36}$ & $\sfrac{2}{36}$
+            & $\sfrac{2}{36}$ & $\sfrac{2}{36}$ 
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\sfrac{7}{36}$ & $\Prob(Y = 3)$ \\
+            4 & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\sfrac{1}{36}$ & $\sfrac{2}{36}$
+            & $\sfrac{2}{36}$ & $\cdot$ & $\cdot$
+            & $\sfrac{5}{36}$ & $\Prob(Y = 4)$ \\
+            5 & $\cdot$ & $\cdot$ & $\cdot$ 
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ & $\sfrac{1}{36}$ 
+            & $\sfrac{2}{36}$ & $\cdot$
+            & $\sfrac{3}{36}$ & $\Prob(Y = 5)$ \\
+            6 & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\cdot$ & $\cdot$
+            & $\cdot$ & $\sfrac{1}{36}$
+            & $\sfrac{1}{36}$ & $\Prob(Y = 6)$ \\
+            \cmidrule{1-13}
+            Total & $\sfrac{1}{36}$ & $\sfrac{2}{36}$ & $\sfrac{3}{36}$ 
+            & $\sfrac{4}{36}$ & $\sfrac{5}{36}$ & $\sfrac{6}{36}$
+            & $\sfrac{5}{36}$  & $\sfrac{4}{36}$ & $\sfrac{3}{36}$
+            & $\sfrac{2}{36}$ & $\sfrac{1}{36}$ & 1 & \\
+            \cmidrule[\heavyrulewidth]{1-13}
+            \rotatebox[origin=c]{90}{\shortstack{Marginal\\ de $X$}}
+            & \rotatebox[origin=c]{90}{$\Prob(X = 2)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 3)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 4)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 5)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 6)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 7)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 8)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 9)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 10)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 11)$} 
+            & \rotatebox[origin=c]{90}{$\Prob(X = 12)$} 
+            & & \\
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{example}
+    $(X, Y)$ é um vetor aleatório bidimensional.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \cmidrule[\heavyrulewidth]{1-5}
+            \multirow{2}{*}{$Y$}
+                & \multicolumn{3}{c}{$X$}
+                & \multirow{2}{*}{Total}
+                & \multirow{2}{*}{\shortstack{Marginal\\ de $Y$}} \\
+            \cmidrule{2-4}
+            & 1 & 2 & 3 & & \\
+            \cmidrule{1-5}
+            1 & $\sfrac{1}{12}$ & $\sfrac{1}{6}$
+            & 0 & $\sfrac{1}{4}$ & $\Prob(Y = 1)$ \\
+            2 & 0 & $\sfrac{1}{9}$
+            & $\sfrac{1}{5}$ & $\sfrac{14}{45}$ & $\Prob(Y = 2)$ \\
+            3 & $\sfrac{1}{18}$ & $\sfrac{1}{4}$
+            & $\sfrac{2}{15}$ & $\sfrac{79}{180}$ & $\Prob(Y = 3)$ \\
+            \cmidrule{1-5}
+            Total & $\sfrac{5}{36}$ & $\sfrac{19}{36}$ & $\sfrac{1}{3}$ & 1 & \\
+            \cmidrule[\heavyrulewidth]{1-5}
+            \shortstack{Marginal\\ de $Y$}
+            & $\Prob(X = 1)$ & $\Prob(X = 2)$ & $\Prob(X = 3)$ & &
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{example}[Continuação do \cref{exp:ch03-fdp}]
+    Considere novamente
+    \begin{align*}
+        f(x, y) &= \begin{cases}
+            x^2 + \frac{xy}{3}, 
+                &\text{se } 0 \leq x \leq 1 \text{ e } 0 \leq y \leq 2, \\
+            0, &\text{caso contrário}
+        \end{cases}
+    \end{align*}
+
+    A distribuição marginal de $X$ é dada por (\cref{eq:ch03-marginal-x-continua})
+    \begin{align*}
+        f_X(x) &= \int_{-\infty}^{+\infty} f(x, y) \wrt y \\
+        &= \int_0^2 x^2 + \frac{xy}{3} \wrt y \\
+        &= \left.x^2 y + \frac{xy^2}{6}\right|_{y=0}^{y=2} \\
+        &= 2x^2 + \frac{2x}{3},\ \text{se } 0 \le x \le 1.
+    \end{align*}
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=major,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=0, xmax=1.1,
+                ymin=0, ymax=3,
+                xtick={0, 1},
+                ytick={8/3},
+                yticklabels={$\sfrac{8}{3}$},
+                xlabel={$x$},
+                ylabel={$f_X(x)$},
+                x label style={anchor=west},
+                y label style={anchor=south},
+                legend style={fill=none,draw=none},
+            ]
+
+            \addplot[blue, ultra thick, domain=0:1, samples=100]
+                {2*x^2+2*x/3};
+            \addplot[only marks, blue, ultra thick, samples at={0, 1}]
+                {2*x^2+2*x/3};
+                
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    A distribuição marginal de $Y$ é dada por (\cref{eq:ch03-marginal-y-continua})
+    \begin{align*}
+        f_Y(y) &= \int_{-\infty}^{+\infty} f(x, y) \wrt x \\
+        &= \int_0^1 x^2 + \frac{xy}{3} \wrt x \\
+        &= \left. \frac{x^3}{3} + \frac{x^2 y}{6}\right|_{x=0}^{x=1} \\
+        &= \frac{1}{3} + \frac{y}{6},\ \text{se } 0 \le y \le 2.
+    \end{align*}
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=major,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=0, xmax=2.2,
+                ymin=0, ymax=11/15,
+                xtick={0, 2},
+                ytick={1/3, 2/3},
+                yticklabels={$\sfrac{1}{3}$, $\sfrac{2}{3}$},
+                xlabel={$y$},
+                ylabel={$f_Y(y)$},
+                x label style={anchor=west},
+                y label style={anchor=south},
+                legend style={fill=none,draw=none},
+            ]
+
+            \addplot[blue, ultra thick, domain=0:2, samples=100]
+                {1/3+x/6};
+            \addplot[only marks, blue, ultra thick, samples at={0, 2}]
+                {1/3+x/6};
+                
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+\end{example}
+
+A distribuição da variável $X$ para a variável $Y$ fixada
+em um certo valor $Y = y$ é chamada de
+\textbf{distribuição condicional} de $X$ dado $Y = y$.
+
+\begin{definition}
+    \begin{enumerate}
+        \item $(X, Y)$ é um vetor bidimensional discreto.
+        
+        Definimos as \textbf{funções massa de probabilidade condicionais}
+        como:
+        \begin{align}
+            \Prob(X = x | Y = y) &= \frac{\Prob(X = x , Y = y)}{\Prob(Y = y)}
+                \label{eq:ch03-cond-x-discreta} \\
+            \Prob(Y = y | X = x) &= \frac{\Prob(X = x , Y = y)}{\Prob(X = x)}
+                \label{eq:ch03-cond-y-discreta}
+        \end{align}
+        para $x \in A_X$ e $y \in A_Y$.
+
+        \item $(X, Y)$ é um vetor bidimensional contínuo.
+
+        Definimos as \textbf{funções densidade condicionais}
+        como:
+        \begin{align}
+            f_{X|Y}(x | y) &= \frac{f(x, y)}{f_Y(y)}
+                \label{eq:ch03-cond-x-contínua} \\
+            f_{Y|X}(y | x) &= \frac{f(x, y)}{f_X(x)}
+                \label{eq:ch03-cond-y-contínua}
+        \end{align}
+    \end{enumerate}
+
+    \begin{obs}
+        A definição requer que o \textit{denominador seja maior que 0}.
+    \end{obs}
+\end{definition}
+
+\begin{definition}
+    \begin{enumerate}
+        \item $(X, Y)$ é um vetor bidimensional discreto.
+        
+        $X$ e $Y$ são \va s independentes se:
+        \begin{align}
+            \Prob(X = x , Y = y) &= \Prob(X = x) \cdot \Prob(Y = y)
+            \label{eq:ch03-indep-discreto}
+        \end{align}
+        para $x \in A_X$ e $y \in A_Y$.
+
+        \item $(X, Y)$ é um vetor bidimensional contínuo.
+
+        $X$ e $Y$ são \va s independentes se:
+        \begin{align}
+            f(x, y) &= f_X(x) \cdot f_Y(y)
+            \label{eq:ch03-indep-continuo}
+        \end{align}
+    \end{enumerate}
+
+    \begin{obs}
+        De outra forma (cf. \cref{eq:ch01-independencia}):
+        \begin{align}
+            \text{(discreto)} & \begin{cases}
+                \Prob(X = x | Y = y) &= \Prob(X = x) \\
+                \Prob(Y = y | X = x) &= \Prob(Y = y)
+            \end{cases} \\
+            \text{(contínuo)} & \begin{cases}
+                f_{X|Y}(x | y) &= f_X(x) \\
+                f_{Y|X}(y | x) &= f_Y(y)
+            \end{cases}
+        \end{align}
+    \end{obs}
+\end{definition}
+
+\begin{example}
+    Considere
+    \begin{align*}
+        f(x, y) &= \begin{cases}
+            \e^{-x}\e^{-y} &,\ \text{se } x > 0 \text{ e } y > 0, \\
+            0 &,\ \text{caso contrário}
+        \end{cases}
+    \end{align*}
+
+    Notar que
+    \begin{align*}
+        f_X(x) 
+        &\overset{\text{\Cref{eq:ch03-marginal-x-continua}}}{=}
+        \int_0^{+\infty} \e^{-x} \e^{-y} \wrt y = \e^{-x}
+        ,\ \text{se } x > 0
+    \end{align*}
+    e
+    \begin{align*}
+        f_Y(y)
+        &\overset{\text{\Cref{eq:ch03-marginal-y-continua}}}{=}
+        \int_0^{+\infty} \e^{-x} \e^{-y} \wrt x = \e^{-y}
+        ,\ \text{se } y > 0
+    \end{align*}
+    são funções densidade. 
+    
+    Além disso, $f(x, y) = f_X(x) \cdot f_Y(y)$
+    (\cref{eq:ch03-indep-continuo}).
+    
+    Portanto, $X$ e $Y$ são independentes.
+\end{example}
+
+\begin{example}\label{exp:ch03-dependentes}
+    Considere
+    \begin{align*}
+        f(x, y) &= \begin{cases}
+            8xy &,\ \text{se } 0 \le x \le y \le 1, \\
+            0 &,\ \text{caso contrário}
+        \end{cases}
+    \end{align*}
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=major,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=0, xmax=1.1,
+                ymin=0, ymax=1.1,
+                xtick={1},
+                ytick={1},
+                xlabel={$x$},
+                ylabel={$y$},
+                x label style={anchor=west},
+                y label style={anchor=south},
+                legend style={fill=none,draw=none},
+            ]
+
+            \addplot[name path=lower, samples at={0,1}, opacity=0] {x};
+            \addplot[name path=upper, samples at={0,1}, opacity=0] {1};
+
+            \draw[ultra thick, blue] (0, 0) -- (1, 1) -- (0, 1) -- (0, 0);
+
+            \addplot[pattern=north west lines, pattern color=blue]
+                fill between [of=lower and upper];
+
+            \node[blue,fill=white!50,fill opacity=.8]
+                at (1/3,2/3) {$f(x, y) > 0$};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    As distribuições marginais são
+    \begin{align*}
+        f_X(x)
+        &\overset{\text{\Cref{eq:ch03-marginal-x-continua}}}{=}
+        \int_x^1 8xy \wrt y \\
+        &= \left.4xy^2\right|_{y=x}^{y=1} \\
+        &= 4x(1 - x^2)
+    \end{align*}
+    para $0 \le x \le 1$, e
+    \begin{align*}
+        f_Y(y)
+        &\overset{\text{\Cref{eq:ch03-marginal-y-continua}}}{=}
+        \int_0^y 8xy \wrt x \\
+        &= \left.4x^2 y\right|_{x=0}^{x=y} \\
+        &= 4y^3
+    \end{align*}
+    para $0 \le y \le 1$.
+
+    Como $f(x, y) \ne f_X(x) \cdot f_Y(y)$, $X$ e $Y$
+    \textbf{não} são independentes.
+\end{example}
+
+\begin{example}[Continuação do \cref{exp:ch03-dependentes}]
+    Calcular $f_{X|Y}(x|y)$ e $f_{Y|X}(y|x)$.
+
+    \bigskip
+    Do exemplo, temos que
+    \begin{align*}
+        f(x, y) &= \begin{cases}
+            8xy &,\ \text{se } 0 \le x \le y \le 1, \\
+            0 &,\ \text{caso contrário}
+        \end{cases} \\
+        \\
+        f_X(x) &= 4x(1 - x^2),\ 0 \le x \le 1 \\
+        \\
+        f_Y(y) &= 4y^3,\ 0 \le y \le 1
+    \end{align*}
+    
+    Pela equação \cref{eq:ch03-cond-x-contínua}:
+    \begin{align*}
+        f_{X|Y}(x | y) &= \frac{f(x, y)}{f_Y(y)} \\
+        \implies f_{X|Y}(x | y) &= \frac{8xy}{4y^3} \\
+        &= \frac{2x}{y^2}
+    \end{align*}
+    para $0 \le x \le y \le 1$ e $y \ne 0$.
+
+    Pela equação \cref{eq:ch03-cond-y-contínua}:
+    \begin{align*}
+        f_{Y|X}(y | x) &= \frac{f(x, y)}{f_X(x)} \\
+        \implies f_{Y|X}(y | x) &= \frac{8xy}{4x(1 - x^2)} \\
+        &= \frac{2y}{1 - x^2}
+    \end{align*}
+    para $0 \le x \le y \le 1$ e $x \ne 1$.
+\end{example}
+
+\begin{property}
+    Se $X$ e $Y$ são \va s independentes, então funções de $X$ e $X$
+    também são independentes, ou seja, $g_1(X)$ e $g_2(Y)$
+    são independentes.
+\end{property}
+
+\begin{example}
+    $X$ e $Y$ independentes $\implies$ $\cos(X)$ e $Y^2$ são independentes.
+\end{example}
+
+\begin{obs}
+    $g_1$ e $g_2$ podem ser a mesma função.
+\end{obs}
+
+\begin{example}    
+    $X$ e $Y$ independentes $\implies$ $\cos(X)$ e $\cos(Y)$ são independentes.
+\end{example}
+
+\begin{result}[Esperança de uma função de $(X, Y)$]
+    \begin{enumerate}
+        \item Caso discreto: \begin{align}
+            \Expected[g(X, Y)] &= \sum_{x \in A_X} \sum_{y \in A_Y}
+                g(x, y) \cdot \Prob(X = x, Y = y)
+            \label{eq:ch03-esperanca-funcao-vetor-discreta}
+        \end{align}
+        \item Caso contínuo: \begin{align}
+            \Expected[g(X, Y)] &= \int_{-\infty}^{+\infty} 
+                \int_{-\infty}^{+\infty}
+                    g(x, y) \cdot f(x, y)
+                \wrt x
+            \wrt y
+            \label{eq:ch03-esperanca-funcao-vetor-continua}
+        \end{align}
+    \end{enumerate}
+\end{result}
+
+\begin{property}
+    Se $X$ e $Y$ são \va s independentes, então
+    \begin{align}
+        \Expected(XY) = \Expected(X) \cdot \Expected(Y).
+    \end{align}
+
+    \begin{obs}
+        \textbf{Cuidado com a recíproca!}
+    \end{obs}
+\end{property}
+
+\begin{property}
+    Se $X$ e $Y$ são \va s independentes, então
+    \begin{align}
+        \Var(a_1 X + a_2 Y) = a_1^2 \Var(X) + a_2^2\Var(Y).
+    \end{align}
+
+    Em particular, $\Var(X + Y) = \Var(X) + \Var(Y)$.
+\end{property}
+
+Lembando que (\cref{eq:ch02-def-variancia}):
+\begin{align*}
+    \Var(X) &= \Expected\left[(X-\mu)^2\right]
+\end{align*}
+sendo que (\cref{def:ch02-momento}) $\mu = \Expected(X)$, podemos escrever
+\begin{align*}
+    \Var(X) &= \Expected\left[(X-\mu)\cdot(X-\mu)\right]
+\end{align*}
+
+\begin{definition}\label{def:ch03-covariancia}
+    \begin{align}
+        \Cov(X, Y) &= \Expected\left[
+            (X-\Expected(X))\cdot(Y-\Expected(Y))
+        \right]
+        \label{eq:ch03-def-covariancia}
+    \end{align}
+
+    \begin{obs}
+        Note que
+        \begin{align*}
+            \Cov(X, X) &= \Var(X) \\
+            \Cov(Y, Y) &= \Var(Y)
+        \end{align*}
+    \end{obs}
+\end{definition}

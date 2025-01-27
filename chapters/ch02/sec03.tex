@@ -1,0 +1,261 @@
+\section[Densidade de probabilidade]{Função densidade de probabilidade}
+
+\begin{result}\label{res:ch02-soma-divergente}
+    A soma de uma quantidade infinita \textbf{não} enumerável de números
+    positivos \textbf{diverge} $(\to +\infty)$.
+\end{result}
+
+Por causa do \cref{res:ch02-soma-divergente}, não é possível
+atribuir probabilidades positivas aos valores de uma \va\ contínua.
+
+Adaptamos o conceito de densidade (física, engenhaia).
+
+\begin{example}
+    Uma barra cilíndrica de comprimento $L$ tem densidade ($d$) que varia
+    ao longo da barra.
+    
+    \begin{center}
+        \begin{tikzpicture}[
+            declare function={d(\x) = 1.6 + sin(\x+15);}
+            ]
+            \pgfmathsetmacro{\xA}{90}
+            \pgfmathsetmacro{\yA}{d(\xA)}
+            \pgfmathsetmacro{\xB}{265}
+            \pgfmathsetmacro{\yB}{d(\xB)}
+            \pgfmathsetmacro{\dx}{20}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=0, xmax=400,
+                ymin=0, ymax=3,
+                xtick={\xA,\xB, 360},
+                ytick={\yA,\yB},
+                xticklabels={$x_1$, $x_2$, $L$},
+                yticklabels={$d(x_1)$, $d(x_2)$},
+                xlabel={$x$},
+                ylabel={$d(x)$},
+                y label style={anchor=south},
+                x label style={anchor=west},
+            ]
+
+            \addplot[blue, samples=100, domain=0:360]
+                {d(x)};
+            
+            \draw[thin, dashed, gray] (360,0) -- (360, {d(360)});
+
+            \addplot [only marks, samples at={\xA, \xB}, color=red]
+                {d(x)};
+
+            \node[anchor=south] at (\xA, \yA) {$\Delta x$};
+            \node[anchor=south] at (\xB, \yB) {$\Delta x$};
+            
+            \draw[thin, dashed, gray] (0,\yA) -- (\xA, \yA);
+            \draw[thin, dashed, gray] (\xA,0) -- (\xA, \yA);
+            
+            \draw[thin, dashed, gray] (0,\yB) -- (\xB, \yB);
+            \draw[thin, dashed, gray] (\xB,0) -- (\xB, \yB);
+
+            \draw[ultra thick, red] (\xA - \dx, \yA) -- (\xA + \dx, \yA);
+            \draw[ultra thick, red] (\xB - \dx, \yB) -- (\xB + \dx, \yB);
+            
+
+            % \node[blue, ultra thick] at (8, {(5/6)^5*1/6*1/2}) {$\cdots$};
+
+            \end{axis}
+            \label{fig:ch02-densidade}
+        \end{tikzpicture}
+    \end{center}
+
+    Cada posição $x$ tem massa igual a 0.
+    Suponha que a densidade da barra tenha unidade
+    \unit[per-mode = symbol]{\gram\per\centi\meter}.
+
+    Considee intervalos de comprimento $\Delta x$ em torno
+    de $x_1$ e $x_2$. De forma aproximada, as massas dos intervalos
+    são respectivamente $d(x_1)\Delta x$ e $d(x_2)\Delta x$,
+    notando que $d(x_1)\Delta x > d(x_2)\Delta x$, pois $d(x_1) > d(x_2)$.
+\end{example}
+
+\begin{definition}\label{def:ch02-fdp}
+    Uma função densidade de probabilidade é uma função $f(x)$ tal que:
+    \begin{enumerate}
+        \item $f(x) \geq 0$; e
+        \item $\int_{-\infty}^{+\infty} f(x) \wrt x = 1$.
+    \end{enumerate}
+\end{definition}
+
+Se $A$ é um evento do espaço amotral, temos:
+\begin{align}
+    \Prob(A) &= \int_A f(x) \wrt x
+        \label{eq:ch02-prob-continua}
+\end{align}
+
+\begin{example}\label{exp:ch02-prob-continua}
+    Considere o evento $A = (a, b), a < b$. Neste caso:
+    \begin{align*}
+        \Prob(A) &= \int_a^b f(x) \wrt x
+    \end{align*}
+    
+    \begin{center}
+        \begin{tikzpicture}[
+            declare function={f(\x) = .6 + .4*sin(deg(\x)+15) + exp(-.3*\x+log10(\x^2));}
+            ]
+            \pgfmathsetmacro{\xA}{-1}
+            \pgfmathsetmacro{\xB}{4}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-2, xmax=5,
+                ymin=0, ymax=3,
+                xtick={\xA,\xB},
+                ytick=\empty,
+                xticklabels={$a$, $b$},
+                xlabel={$x$},
+                ylabel={$f(x)$},
+                y label style={anchor=south},
+                x label style={anchor=west},
+            ]
+
+            \addplot[name path=pdf, blue, samples=100, domain=-2:5]
+                {f(x)};
+
+            \path[name path=axis] (-2, 0) -- (5, 0);
+
+            \addplot [pattern=north west lines, pattern color=orange]
+                fill between[of=axis and pdf,soft clip={domain=\xA:\xB}];
+            
+
+            
+            \draw[->,>=stealth]
+                (2, 1) to [out=90,in=-135] (3.5, 2.5);
+            \node[anchor=south west] at (3.5, 2.5) {$\Prob(A)$};
+
+            \end{axis}
+            \label{fig:ch02-prob-densidade}
+        \end{tikzpicture}
+    \end{center}
+\end{example}
+
+\begin{example}\label{exp:ch02-prob-continua-variacao}
+    Seja:
+    \begin{itemize}
+        \item $A = \left[a, b\right)$, \textbf{ou}
+        \item $A = \left(a, b\right]$, \textbf{ou}
+        \item $A = \left[a, b\right]$.
+    \end{itemize}
+    em que $a < b$. Em qualquer um dos casos, $\Prob(A)$ é a mesma
+    do \cref{exp:ch02-prob-continua}.
+\end{example}
+
+\begin{example}
+    Seja $A = \{a\}$, $a \in \R$. Neste caso, $\Prob(A) = 0$.
+
+    Observe que $\Prob(A)$ corresponde a $\Prob(X = a)$.
+    
+    Nos \cref{exp:ch02-prob-continua,exp:ch02-prob-continua-variacao}, podemos escrever:
+    \begin{align*}
+        \Prob(a < X < b)
+        &= \Prob(a \leq X < b) \\
+        &= \Prob(a < X \leq b) \\
+        &= \Prob(a \leq X \leq b)
+    \end{align*}
+\end{example}
+
+\begin{example}
+    $X$ é uma \va\ que assume valores no conjunto $\R$.
+
+    Considere $A = \Z$. Neste caso, $\Prob(A) = 0$.
+\end{example}
+
+\begin{example}
+    Seja $A = (a, b), a < b$.
+
+    
+    \begin{minipage}[t]{.5\textwidth}
+        \centering
+        \begin{tikzpicture}[
+            scale=.8,
+            declare function={f(\x) = 0.0020089285714*((\x+4)^8)*exp(-2*(\x+4));}
+            ]
+            \pgfmathsetmacro{\xA}{-1}
+            \pgfmathsetmacro{\xB}{4}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-2, xmax=5,
+                ymin=0, ymax=.05,
+                xtick={\xA,\xB},
+                ytick=\empty,
+                xticklabels={$a$, $b$},
+                xlabel={$x$},
+                ylabel={$f(x)$},
+                y label style={anchor=south},
+                x label style={anchor=west},
+                legend style={fill=none,draw=none},
+            ]
+
+            \addplot[name path=pdf, blue, samples=100, domain=-2:5]
+                {f(x)};
+            \addlegendentry {$f_1(x)$}
+
+            \path[name path=axis] (-2, 0) -- (5, 0);
+
+            \addplot [pattern=north west lines, pattern color=orange]
+                fill between[of=axis and pdf,soft clip={domain=\xA:\xB}];
+
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \begin{minipage}[t]{.5\textwidth}
+        \centering
+        \begin{tikzpicture}[
+            scale=.8,
+            declare function={f(\x) = 0.0020089285714*((\x+4)^8)*exp(-2*(\x+4));}
+            ]
+            \pgfmathsetmacro{\xA}{-1}
+            \pgfmathsetmacro{\xB}{4}
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=none,
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-2, xmax=5,
+                ymin=0, ymax=.05,
+                xtick={\xA,\xB},
+                ytick=\empty,
+                xticklabels={$a$, $b$},
+                xlabel={$x$},
+                ylabel={$f(x)$},
+                y label style={anchor=south},
+                x label style={anchor=west},
+                legend style={fill=none,draw=none},
+            ]
+
+            \addplot[name path=pdf, red, samples=100, domain=-2:5]
+                {f(x)};
+            \addlegendentry {$f_2(x)$}
+            
+            \addplot[only marks, red]
+                coordinates {(2, .03)};
+            \addplot[only marks, red, fill=white]
+                coordinates {(2, {f(2)})};
+
+            \draw[red, dashed] (2,{f(2)}) -- (2, .03);
+
+            \path[name path=axis] (-2, 0) -- (5, 0);
+
+            \addplot [pattern=north west lines, pattern color=orange]
+                fill between[of=axis and pdf,soft clip={domain=\xA:\xB}];
+
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+
+    $\Prob(A)$ é a mesma se for calculada com $f_1(x)$ ou $f_2(x)$.
+\end{example}

@@ -1,0 +1,192 @@
+\section[Variáveis aleatórias discretas]{Distribuição de probabilidade de variáveis aleatórias discretas}
+
+\begin{definition}
+    A distribuição de probabilidade de uma variável aleatória (\va) discreta
+    $X$ é uma função que atribui a cada valor de $X$ sua respectiva
+    probabilidade.
+\end{definition}
+
+\begin{example}
+    Lançamento de uma moeda com $X(\{\text{coroa}\}) = 0$ e $X(\{\text{cara}\}) = 1$.
+    Tomamos $p_C \in (0, 1)$.
+
+    \begin{center}
+        \begin{tabular}{cc}
+            \toprule
+            $x$ & $\Prob(X=x)$ \\
+            \midrule
+            $0$ & $1 - p_C$ \\
+            $1$ & $p_C$ \\
+            \midrule
+            Soma & 1 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{example}[Continuação do \cref{exp:ch02-va-moeda}]
+    Temos:
+    \begin{center}
+        \begin{tabular}{cc}
+            \toprule
+            $x$ & $\Prob(X=x)$ \\
+            \midrule
+            $0$ & $\sfrac{1}{4}$ \\
+            $1$ & $\sfrac{1}{2}$ \\
+            $2$ & $\sfrac{1}{4}$ \\
+            \midrule
+            Soma & 1 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+
+    Se tivermos $p_C$ qualquer, a distribuição passa a ser:
+    \begin{center}
+        \begin{tabular}{cc}
+            \toprule
+            $x$ & $\Prob(X=x)$ \\
+            \midrule
+            $0$ & $(1 - p_C)^2$ \\
+            $1$ & $\color{detail-color}{1 - (1 - p_C)^2 - p_C^2}$ \\
+            $2$ & $p_C^2$ \\
+            \midrule
+            Soma & 1 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{example}
+    No lançamento de um dado de seis faces, a probabilidade de cada face
+    é proporcional ao número de pontos na face. A \va\ $X$ representa 
+    o resultado do lançamento, sendo que $X \in \{1,2,3,4,5,6\}$.
+    Apresente a distribuição de probabilidade de $X$.
+
+    \bigskip
+    Para $x \in \{1,2,3,4,5,6\}$, temos que
+    \begin{align*}
+        \Prob(X = x) &= kx
+    \end{align*}
+    e
+    \begin{align*}
+        \sum_{x=1}^6 \Prob(X = x) &= 1
+    \end{align*}
+
+    Portanto,
+    \begin{align*}
+        \sum_{x=1}^6 kx &= 1 \\
+        \implies k \sum_{x=1}^6 x &= 1 \\
+        \therefore k &= \frac{1}{\sum_{x=1}^6 x}
+    \end{align*}
+    ou seja,
+    \begin{align*}
+        k &= \frac{1}{\sum_{x=1}^6 x} = \frac{1}{21}
+    \end{align*}
+
+    Portanto, a distribuição de $X$ é:
+    \begin{center}
+        \begin{tabular}{cc}
+            \toprule
+            $x$ & $\Prob(X=x)$ \\
+            \midrule
+            $1$ & $\sfrac{1}{21}$ \\
+            $2$ & $\sfrac{2}{21}$ \\
+            $3$ & $\sfrac{3}{21}$ \\
+            $4$ & $\sfrac{4}{21}$ \\
+            $5$ & $\sfrac{5}{21}$ \\
+            $6$ & $\sfrac{6}{21}$ \\
+            \midrule
+            Soma & 1 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{obs}
+    A distribuição de probabilidade de uma \va\ discreta também é chamada
+    de \textbf{função massa de probabilidade}.
+\end{obs}
+
+\begin{example}
+    Um dado de seis faces é lançado. A \va\ $X$ representa o número do lançamento
+    em que ocorre o resultado $\{6\}$ pela primeira vez. Neste caso,
+    $X \in \{1,2,\cdots\} = \Nat$. Apresente a função de probabilidade da \va $X$.
+
+    \bigskip
+    Supomos que os resultados dos lançamentos são eventos independentes.
+
+    Digamos que $X = n$, $n \in \Nat$, dignifica que $n -1$ resultados
+    são do conjunto $\{1,2,3,4,5\}$ e o n-ésimo resultado é $\{6\}$.
+    Logo:
+    \begin{align*}
+        \Prob(X = n) &= \left(\frac{5}{6}\right)^{n-1} \cdot \frac{1}{6}
+    \end{align*}
+
+    Sendo $A = \{6\}$, a sequência de eventos independentes é
+    \begin{align*}
+        \underbrace{\stcomp{A}, \stcomp{A}, \cdots, \stcomp{A}}_
+            {n - 1\ \text{vezes}}, A 
+    \end{align*}
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                unbounded coords=jump,
+                ymajorgrids=true,
+                major grid style={dashed},
+                axis x line=middle,
+                axis y line=middle,
+                xmin=0, xmax=10,
+                ymin=0, ymax=0.2,
+                xtick={1,2,...,6},
+                ytick={
+                    (5/6)^5*1/6,
+                    (5/6)^4*1/6,
+                    (5/6)^3*1/6,
+                    (5/6)^2*1/6,
+                    5/6*1/6,
+                    1/6
+                },
+                yticklabels={
+                    $\left(\sfrac{5}{6}\right)^5 \cdot \sfrac{1}{6}$,
+                    \empty,
+                    $\left(\sfrac{5}{6}\right)^3 \cdot \sfrac{1}{6}$,
+                    \empty,
+                    $\sfrac{5}{6} \cdot \sfrac{1}{6}$,
+                    $\sfrac{1}{6}$,
+                },
+                xlabel={$n$},
+                ylabel={$\Prob(X =n)$},
+                y label style={anchor=south},
+                x label style={anchor=west},
+            ]
+            
+            \addplot+[
+                ycomb,
+                dashed,
+                samples=6, 
+                domain=1:6,
+                blue]
+                {(1/6)*(5/6)^(x-1)};
+
+            \node[blue, ultra thick] at (8, {(5/6)^5*1/6*1/2}) {$\cdots$};
+
+            \end{axis}
+            \label{fig:ch02-geom-dado-seis}
+        \end{tikzpicture}
+    \end{center}
+
+    Vamos veificar o axioma \labelcref{it:ch01-axioma-3} da \cref{def:axiomatica}. 
+    Calculamos:
+    \begin{align*}
+        \sum_{n=1}^\infty \Prob(X = n)
+        &= \sum_{n=1}^\infty \left(\frac{5}{6}\right)^{n-1} \cdot \frac{1}{6} \\
+        &= \frac{1}{6} \cdot \sum_{n=1}^\infty \left(\frac{5}{6}\right)^{n-1} \\
+        &= \frac{1}{6}
+            \cdot \underbrace{
+                \left[1 + \frac{5}{6} + \left(\frac{5}{6}\right)^2 + \cdots\right]
+            }_{\text{Soma da PG infinita de razão}\ \sfrac{5}{6}}\\
+        &= \frac{1}{6} \cdot \frac{1}{1 - \frac{5}{6}} \\
+        &= \frac{1}{6} \cdot 6 = 1
+    \end{align*}
+\end{example}

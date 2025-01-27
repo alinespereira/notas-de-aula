@@ -1,0 +1,58 @@
+\section{Operações entre eventos}
+
+\begin{definition}
+    A união de dois eventos $A$ e $B$ ($A \cup B$) é o evento
+    que ocorre se pelo menos um dos eventos ocorrer.
+\end{definition}
+
+\begin{definition}
+    A interseção de dois eventos $A$ e $B$ ($A \cap B$) é o evento
+    que ocorre se ambos ocorrerem.
+\end{definition}
+
+\begin{definition}
+    O complemento do evento $A$ ($\stcomp{A}$) é o evento que ocorre
+    quando $A$ não ocorrer.
+\end{definition}
+
+\begin{obs}
+    $\{x\}$ é o resultado de um experimento aleatório.
+    Se o evento $A$ ocorreu, então $x \in A$.
+\end{obs}
+
+Se a ocorrência do evento $A$ impede a ocorrência do evento $B$,
+dizemos que $A$ e $B$ são mutuamente exclusivos:
+\begin{align*}
+    A \cap B &= \emptyset.
+\end{align*}
+
+\begin{example}
+    $A$ e $\stcomp{A}$ são mutuamente exclusivos:
+    \begin{align*}
+        A \cap \stcomp{A} &= \emptyset.
+    \end{align*}
+\end{example}
+
+\begin{lemma}\label{eq:ch01-ops}
+    $A$, $B$ e $C$ são eventos de um espaço amostal S. Temos que:
+    \begin{align}
+        (A \cup B) \cap C &= (A \cap C) \cup (B \cap C) 
+            \label{eq:ch01-ops-1} \\
+        (A \cap B) \cup C &= (A \cup C) \cap (B \cup C) 
+            \label{eq:ch01-ops-2} \\
+        \stcomp{(A \cup B)} &= \stcomp{A} \cap \stcomp{B}
+            \label{eq:ch01-ops-3} \\
+        \stcomp{(A \cap B)} &= \stcomp{A} \cup \stcomp{B}
+            \label{eq:ch01-ops-4}
+    \end{align}
+\end{lemma}
+
+\begin{definition}
+    O evento $\bigcup_{i = 0}^\infty A_i$ é o evento que ocorre
+    quando \textit{pelo menos um} dos eventos $A_i$ ocorrer.
+\end{definition}
+
+\begin{definition}
+    O evento $\bigcap_{i = 0}^\infty A_i$ é o evento que ocorre
+    quando \textit{todos} os eventos $A_i$ ocorrerem.
+\end{definition}

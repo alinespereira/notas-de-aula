@@ -1,0 +1,307 @@
+\section{Momentos}
+
+\begin{definition}\label{def:ch02-momento}
+    O \textbf{momento} de ordem $k$ de uma \va\ $X$
+    é definido como
+    \begin{align}
+        \mu_k &= \Expected(X^k),\ k = 1,2,\cdots
+        \label{eq:ch02-def-momento}
+    \end{align}
+    se $\Expected(X^k)$ existir ($\Expected(X^k) \in \R$).
+
+    \begin{obs}
+        O primeiro momento é a \textbf{média} da \va\ $X$.
+        Para o primeiro momento, usamos a notação
+        $\mu = \Expected(X)$.
+    \end{obs}
+\end{definition}
+
+\begin{definition}
+    A \textbf{variância} de uma \va\ $X$ é definida como
+    \begin{align}
+        \Var(X) &= \sigma^2 = \Expected\left[(X-\mu)^2\right]
+        \label{eq:ch02-def-variancia}
+    \end{align}
+
+    Notar que $\Var(X) \in [0, +\infty)$.
+\end{definition}
+
+\begin{obs}
+    Se $X = x_0$ (constante), então:
+    \begin{align*}
+        \Expected(X) &= x_0\text{ e} \\
+        \Var(X) &= 0.
+    \end{align*}
+\end{obs}
+
+\begin{definition}
+    O \textbf{desvio-padrão} de uma \va\ $X$ é definido como
+    $\sigma = \sqrt{\Var(X)}$.
+
+    O desvio-padrão tem a mesma unidade da \va\ $X$.
+\end{definition}
+
+\begin{property}
+    Se $X_1, X_2, \cdots, X_k$ são \va s e 
+    $a_1, a_2, \cdots, a_k$ são constantes reais, então
+    \begin{align}
+        \Expected\left(\sum_{i=1}^k a_i \cdot X_i\right)
+        &= \sum_{i=1}^k a_i \cdot \Expected(X_i)
+        \label{eq:ch02-media-da-soma}
+    \end{align}
+
+    Em particular,
+    \begin{align*}
+        \Expected(X_1 + X_2) &= \Expected(X_1) + \Expected(X_2)
+    \end{align*}
+\end{property}
+
+Funções de \va\ também são \va s. Como calcular $\Expected[g(X)]$?
+
+\begin{result}
+    \begin{align}
+        \Expected[g(X)] &= \begin{cases}
+            \sum_{x \in A} g(x)\cdot\Prob(X = x),
+            & \text{se X é uma \va\ discreta} \\
+            \\
+            \int_{-\infty}^{+\infty} g(x)\cdot f(x) \wrt x,
+            & \text{se X é uma \va\ contínua}
+        \end{cases}
+        \label{eq:ch02-espeanca-funcao-va}
+    \end{align}
+\end{result}
+
+\begin{property}[Propriedades da variância]
+    \label{prop:ch02-variancia}
+    \begin{enumerate}
+        \item \begin{align}
+            \sigma^2 &= \Var(X) \notag \\
+            &= \Expected(X^2) - \mu^2 \notag \\
+            &= \Expected(X^2) - \left\{\Expected(X)\right\}^2
+            \label{it:ch02-variancia-momentos}
+        \end{align}
+        \item Se $a_1$ e $a_2$ são constantes reais, então
+        \begin{align}
+            \Var(a_1 + a_2 X) &= a_2^2\Var(X)
+            \label{it:ch02-variancia-constantes-reais}
+        \end{align}
+        e o desvio-padrão é $|a_2|\sqrt{\Var(X)}$.
+    \end{enumerate}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item \begin{align*}
+                \sigma^2 = \Var(X)
+                &\overset{\text{\Cref{eq:ch02-def-variancia}}}{=}
+                \Expected\left[(X-\mu)^2\right] \\
+                &= \Expected\left[(X^2-2\mu X + \mu^2)\right] \\
+                &\overset{\text{\Cref{eq:ch02-media-da-soma}}}{=}
+                \Expected(X^2)
+                    -\Expected(2\mu X)
+                    + \Expected(\mu^2) \\
+                &= \Expected(X^2)
+                    - 2\mu\underbrace{\Expected(X)}_{=\mu}
+                    + \mu^2 \\
+                &= \Expected(X^2) - 2\mu^2 + \mu^2 \\
+                &= \Expected(X^2) + \mu^2
+            \end{align*}
+
+            \item Temos \begin{align*}
+                \Expected(a_1 + a_2 X)
+                &\overset{\text{\Cref{eq:ch02-media-da-soma}}}{=}
+                a_1 + a_2 \Expected(X) \\
+                &= a_1 + a_2 \mu
+            \end{align*}
+            de modo que
+            \begin{align*}
+                \Var(a_1 + a_2 X)
+                &\overset{\text{\Cref{eq:ch02-def-variancia}}}{=}
+                \Expected\left\{
+                    \left[
+                        (a_1 + a_2 X)
+                        - \Expected(a_1 + a_2 X)
+                    \right]^2
+                \right\} \\
+                &= \Expected\left\{
+                    \left[
+                        (\cancel{a_1} + a_2 X)
+                        - (\cancel{a_1} + a_2 \mu)
+                    \right]^2
+                \right\} \\
+                &= \Expected\left\{
+                    \left(a_2 X - a_2 \mu\right)^2
+                \right\} \\
+                &= \Expected\left\{
+                    a_2^2 \left( X - a_2 \mu\right)
+                \right\} \\
+                &\overset{\text{\Cref{eq:ch02-media-da-soma}}}{=}
+                a_2^2 \Expected\left\{
+                    \left( X - a_2 \mu\right)
+                \right\} \\
+                &\overset{\text{\Cref{eq:ch02-def-variancia}}}{=}
+                a_2^2 \underbrace{\Expected\left\{
+                    \left( X - a_2 \mu\right)
+                \right\}}_{=\Var(X)} \\
+                &= a_2^2 \Var(X)
+            \end{align*}
+        \end{enumerate}
+    \end{proof}
+\end{property}
+
+\begin{definition}
+    O \textbf{coeficiente de variação} de uma \va\ $X$
+    é definido como
+    \begin{align}
+        \frac{\sigma}{|\mu|},\ \text{se }\mu \neq 0.
+    \end{align}
+
+    Note que o coeficiente de variação não tem unidade.
+\end{definition}
+
+\begin{definition}
+    A \textbf{função geradora de momentos} (\fgm)
+    de uma \va\ X é definida como
+    \begin{align}
+        \phi(t) &= \Expected(\e^{tX}) \label{eq:ch02-fgm}
+    \end{align}
+    para $t \in \R$ tais que $\phi(t) \in (0, +\infty)$.
+\end{definition}
+
+\begin{result}[Relação entre momentos e \fgm]
+    \begin{align}
+        \mu_k &= \left.\diff[k]{}{t} \phi(t) \right|_{t=0}
+    \end{align}
+\end{result}
+
+\begin{example}\label{exp:ch02-fgm-exponencial}
+    A \va\ $X$ tem função densidade
+    \begin{align*}
+        f(x) &= \begin{cases}
+            \lambda \e^{-\lambda x}, & \text{se } x > 0, \\
+            0, & \text{se } x \leq 0,
+        \end{cases}
+    \end{align*}
+    em que $\lambda$ é chamado \textit{parâmetro}
+    dessa distribuição.
+
+    Calcule a \fgm\ de $X$.
+
+    \bigskip
+    Pela \cref{eq:ch02-fgm}, temos que
+    \begin{align*}
+        \phi(t) &= \Expected(\e^{tX})
+    \end{align*}
+    em que o termo $\Expected(\e^{tX})$ pode ser
+    calculado usando a \cref{eq:ch02-espeanca-funcao-va},
+    observando que $X$ é uma \va\ contínua.
+    Fazendo $g(X) = \e^{tX}$, temos:
+    \begin{align*}
+        \Expected(g(X))
+        &= \int_{-\infty}^{+\infty} g(x) \cdot f(x) \wrt x \\
+        \implies \phi(t) = \Expected(\e^{tX})
+        &= \int_0^{+\infty} \e^{tx}
+            \cdot \lambda \e^{-\lambda x} \wrt x \\
+        &= \lambda \int_0^{+\infty}
+                \e^{(t-\lambda) x} \wrt x \\
+        &= \lambda \int_0^{+\infty}
+                \e^{-(\lambda - t) x} \wrt x \\
+        &= \frac{\lambda}{\lambda - t}
+    \end{align*}
+    Observe que para a integral convergir, devemos ter
+    $\lambda - t > 0 \implies t < \lambda$.
+    Além disso, para que $\phi(t) \in (0, +\infty)$,
+    devemos ter também $\lambda > 0$.
+
+    \bigskip
+    Portanto:
+    \begin{align*}
+        \phi(t) = \Expected(\e^{tX})
+        &= \frac{\lambda}{\lambda - t}
+    \end{align*}
+    para $0 < t < \lambda$.
+\end{example}
+
+Digamos que
+\begin{align*}
+    \phi(t) &= \frac{\sqrt{\lambda}}{\sqrt{\lambda} - t}
+\end{align*}
+Pergunta-se: qual a função densidade de $X$?
+
+\begin{result}
+    A \fgm\ \textbf{identifica} a distribuição da \va.
+\end{result}
+
+Comparando a \fgm\ dada com a do \cref{exp:ch02-fgm-exponencial},
+concluímos que
+    
+\begin{align*}
+    f(x) &= \begin{cases}
+        \sqrt{\lambda} \e^{-\sqrt{\lambda} x}, 
+        & \text{se } x > 0, \\
+        0, & \text{se } x \leq 0,
+    \end{cases}
+\end{align*}
+
+\begin{example}
+    A \fgm\ de $X$ é dada por
+    \begin{align*}
+        \phi(t) = \Expected(\e^{tX})
+        &= \frac{\lambda}{\lambda - t}
+    \end{align*}
+
+    Calcule $\mu$.
+
+    \bigskip
+    Temos que
+    \begin{align*}
+        \mu = \mu_1 &= \Expected(X) =  \Expected(X^1) \\
+        &= \left.\diff{}{t}\phi(t)\right|_{t=0}
+    \end{align*}
+    em que
+    \begin{align*}
+        \diff{}{t}\phi(t) &= \frac{\lambda}{(\lambda - t)^2}
+    \end{align*}
+    
+    Portanto
+    \begin{align*}
+        \mu &= \left.\diff{}{t}\phi(t)\right|_{t=0} \\
+        &= \left.\frac{\lambda}{(\lambda - t)^2}\right|_{t=0} \\
+        &= \frac{1}{\lambda} \\
+    \end{align*}
+\end{example}
+
+\begin{example}
+    $X$ é uma \va\ tal que $\Expected(X) < \infty$.
+    Considere
+    \begin{align*}
+        h(a) &= \Expected[(X-a)^2]
+    \end{align*}
+    $a \in \R$.
+
+    Determine o valor de $a$ que minimiza $h(a)$.
+
+    \bigskip
+    Escrevemos
+    \begin{align*}
+        h(a) &= \Expected[(X-a)^2] \\
+        &= \Expected[X^2-2aX+a^2] \\
+        &= \Expected(X^2)-2a\Expected(X)+a^2
+    \end{align*}
+
+    Calculamos
+    \begin{align*}
+        \diff{h(a)}{a} &= -2\Expected(X)+2a
+    \end{align*}
+    
+    Igualando $\diff{h(a)}{a}$ a zero, obtemos
+    \begin{align*}
+        \diff{h(a)}{a} &= -2\Expected(X)+2a = 0 \\
+        \therefore a &= \Expected(X)
+    \end{align*}
+    que é um ponto de mínimo global, pois
+    \begin{align*}
+        \diff[2]{h(a)}{a} &= 2 > 0
+    \end{align*}
+
+    Portanto, $a = \Expected(X)$.
+\end{example}

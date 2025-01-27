@@ -1,0 +1,94 @@
+\usepackage[most]{tcolorbox}
+
+\newtheoremstyle{sltheorem}
+    {}                % Space above
+    {}                % Space below
+    {\slshape}        % Theorem body font % (default is "\upshape")
+    {1cm}             % Indent amount
+    {\bfseries}       % Theorem head font % (default is \mdseries)
+    {.}               % Punctuation after theorem head % default: no punctuation
+    { }               % Space after theorem head
+    {}                % Theorem head spec
+
+\theoremstyle{sltheorem}
+
+\theoremstyle{sltheorem}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{property}[theorem]{Propriedade}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{question}{Questão}
+\newtheorem{conjecture}[theorem]{Conjectura}
+
+\newtheorem*{obs}{Obs}
+\newtheorem{result}{Resultado}[section]
+% \newtheorem{exercise}[theorem]{Exercício}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{example}{Exemplo}[section]
+\newtheorem*{synonyms}{Sinônimos}
+
+\tcolorboxenvironment{definition}{
+    colback=blue!5!white,
+    colframe=blue!95!black,
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+}
+\tcolorboxenvironment{example}{
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+    colframe={green!25!black},
+    colback={green!10!white}
+}
+
+\tcolorboxenvironment{theorem}{
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+    colframe={yellow!25!black},
+    colback={yellow!10!white}
+}
+
+\tcolorboxenvironment{lemma}{
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+    colframe={yellow!25!black},
+    colback={yellow!10!white}
+}
+
+\tcolorboxenvironment{property}{
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+    colframe={yellow!25!black},
+    colback={yellow!10!white}
+}
+
+\tcolorboxenvironment{result}{
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+    colframe={yellow!25!black},
+    colback={yellow!10!white}
+}
+
+\newtheorem*{notation}{Notação}
+
+\tcolorboxenvironment{obs}{
+    blanker,
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm
+}
+
+\tcolorboxenvironment{notation}{
+    breakable,
+    left=5mm,right=5mm,
+    before skip=5mm,after skip=5mm,
+}

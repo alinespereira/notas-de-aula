@@ -1,0 +1,52 @@
+\documentclass[a4paper,12pt,twoside]{book}
+
+\input{common/preamble}
+\input{common/math}
+\input{common/stats}
+\input{common/booktitle}
+\input{common/envs}
+\input{common/labels}
+
+\title{SME0800 -- Probabilidade I}
+\subtitle{Notas de Aula}
+\author{Aline da Silva Pereira}
+\date{$2^o$ semestre de 2024}
+
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Apêndice}
+\renewcommand{\appendixpagename}{Apêndice}
+\renewcommand{\appendixtocname}{Apêndice}
+
+\makeatletter
+\edef\thetitle{\@title}
+\edef\thesubtitle{\@subtitle}
+\newcommand*{\romanum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\input{common/header}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\input{chapters/ch01}
+\input{chapters/ch02}
+\input{chapters/ch03}
+\input{chapters/ch04}
+\input{chapters/ch05}
+
+% \appendix
+% \begin{appendices}
+% \input{chapters/appendix/set}
+% \end{appendices}
+
+% \addcontentsline{toc}{chapter}{\bibname}
+% \bibliographystyle{plain}
+% \bibliography{bibliography.bib}
+
+\end{document}

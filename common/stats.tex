@@ -1,0 +1,61 @@
+% Common operators
+\DeclareMathOperator{\Md}{Md}
+\DeclareMathOperator{\Mo}{Mo}
+\DeclareMathOperator{\Expected}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Prob}{P}
+\DeclareMathOperator{\F}{\mathcal{F}}
+\DeclareMathOperator{\Power}{\mathcal{P}}
+
+\newcommand{\stcomp}[1]{{#1}^{\mathsf{c}}}
+\newcommand{\va}{v.a.}
+\newcommand{\iid}{i.i.d.}
+\newcommand{\fdp}{f.d.p.}
+\newcommand{\fda}{f.d.a.}
+\newcommand{\fgm}{f.g.m.}
+\let\emptyset\varnothing
+
+% Probability Distributions
+\DeclareMathOperator{\B}{Binomial}
+\DeclareMathOperator{\Ber}{Bernoulli}
+\DeclareMathOperator{\Beta}{Beta}
+\DeclareMathOperator{\Binom}{Binomial}
+\DeclareMathOperator{\BN}{BN}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Gama}{Gama}
+\DeclareMathOperator{\Geo}{Geom\acute{e}trica}
+\DeclareMathOperator{\Hiper}{Hiper}
+\DeclareMathOperator{\N}{\mathcal{N}}
+\DeclareMathOperator{\Pareto}{Pareto}
+\DeclareMathOperator{\Poisson}{Poisson}
+\DeclareMathOperator{\U}{U}
+
+% Bayesian
+\DeclareMathOperator{\HPD}{HPD}
+\DeclareMathOperator{\I}{I}
+
+% PDFs
+\pgfmathdeclarefunction{dnormal}{3}{%
+  \pgfmathparse{1/(sqrt(2*pi*#3))*exp(-((#1-#2)^2)/(2*#3))}%
+}
+
+\pgfmathdeclarefunction{dexp}{2}{%
+  \pgfmathparse{#2*exp(-#2*#1))}%
+}
+
+\pgfmathdeclarefunction{pexp}{2}{%
+  \pgfmathparse{1-exp(-#2*#1))}%
+}
+
+\pgfmathdeclarefunction{dlog}{3}{%
+  \pgfmathparse{exp(-(#1-#2)/#3)/(#3*(1+exp(-(#1-#2)/#3))^2)}%
+}
+
+\pgfmathdeclarefunction{plog}{3}{%
+  \pgfmathparse{1/(1+exp(-(#1-#2)/#3))}%
+}
+
+\pgfmathdeclarefunction{qlog}{3}{%
+  \pgfmathparse{#2+#3*log(#1/(1-#1))}%
+}

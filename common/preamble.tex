@@ -1,0 +1,63 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{hyphenat}
+
+\usepackage[a4paper, 
+            left=2.5cm,
+            right=2.5cm]{geometry}
+\usepackage{indentfirst}
+
+\usepackage{enumitem}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multirow}
+\usepackage[thinc]{esdiff}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\newcommand{\sfrac}[2]{{\textstyle\frac{#1}{#2}}}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{adjustbox}
+\usetikzlibrary{calc}
+\usetikzlibrary{intersections}
+\usetikzlibrary{fillbetween}
+\usetikzlibrary{patterns}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{positioning}
+\usepgfplotslibrary{fillbetween}
+\pgfdeclarelayer{ft}
+\pgfdeclarelayer{bg}
+\pgfdeclarelayer{pre main}
+\pgfsetlayers{bg,pre main,main,ft}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{detail-color}{rgb}{0.0, 0.5, 1.0}
+\definecolor{cancel-color}{rgb}{1.0, 0.13, 0.32}
+
+\AtBeginDocument{\colorlet{defaultcolor}{.}}
+\newcommand{\detail}[1]{\color{detail-color}{#1}\color{defaultcolor}}
+
+\usepackage{booktabs}
+\usepackage{cancel}
+
+\setlist[enumerate,1]{label={(\arabic*)}}
+\setlist[enumerate,2]{label={(\alph*)}}
+
+% \newcommand{\RS}{\text{R\$}}
+\usepackage{subcaption}
+\usepackage{graphicx}
