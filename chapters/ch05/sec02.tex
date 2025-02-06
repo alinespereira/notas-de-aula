@@ -1,0 +1,273 @@
+\section{Algumas distribuições discretas}
+
+\subsection{Uniforme discreta}
+
+$X$ é uma \va\ com $k$ valores diferentes $x_1 < x_2 < \cdots < x_k$.
+A distribuição uniforme é tal que
+\begin{align}
+    p(x_i) = \Prob(X = x_i) &= \frac{1}{k},\ i = 1,2, \cdots, k.
+\end{align}
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[declare function={f(\x)=1/3;}]
+        \begin{axis}[
+            unbounded coords=jump,
+            ymajorgrids=true,
+            major grid style={dashed},
+            axis x line=middle,
+            axis y line=middle,
+            xmin=-2, xmax=8,
+            ymin=0, ymax=1/2,
+            xtick={-1,1 ,3, 7},
+            ytick={1/3},
+            xticklabels={$x_1$,$x_2$,$x_3$,$x_k$,},
+            yticklabels={$\frac{1}{k}$,},
+            xlabel={$x$},
+            ylabel={$\Prob(X = x)$},
+            y tick label style={anchor=south east},
+            y label style={anchor=south},
+            x label style={anchor=west},
+        ]
+        
+        \addplot+[
+            ycomb,
+            dashed,
+            samples at={-1,1 ,3, 7}, 
+            blue]
+            {f(x)};
+
+        \node[blue, ultra thick] at (5, 1/6) {$\cdots$};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Distribuição uniforme discreta}
+    \label{fig:ch06-uniforme-discreta}
+\end{figure}
+
+\begin{example}[O sorteio da Mega Sena]
+    São 60 dezenas $(1, 2, \cdots, 60)$ com probabilidade $\frac{1}{60}$.
+    A distribuição tem que ser uniforme discreta.
+\end{example}
+
+\subsection{Bernoulli}
+
+O experimento tem apenas dois resultados, sucesso ou falha,
+representados por $x=1$ e $x=0$, respectivamente.
+
+Temos $\Prob(X = 1) = \theta$ e $\Prob(X = 0) = 1 - \theta$, $0 < \theta < 1$.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[declare function={f(\x,\t)=(\t^\x)*((1-\t)^(1-\x));}]
+        \begin{axis}[
+            unbounded coords=jump,
+            ymajorgrids=true,
+            major grid style={dashed},
+            axis x line=middle,
+            axis y line=middle,
+            xmin=-1, xmax=2,
+            ymin=0, ymax=1,
+            xtick={0, 1},
+            ytick={1/3, 2/3},
+            yticklabels={$1-\theta$, $\theta$,},
+            xlabel={$x$},
+            ylabel={$\Prob(X = x)$},
+            y label style={anchor=south},
+            x label style={anchor=west},
+        ]
+        
+        \addplot+[
+            ycomb,
+            dashed,
+            samples at={0,1}, 
+            blue]
+            {f(x,2/3)};
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Distribuição Bernoulli}
+    \label{fig:ch06-bernoulli}
+\end{figure}
+
+\begin{notation}
+    $X \sim \Ber(\theta)$
+\end{notation}
+
+Se $X \sim \Ber(\theta)$, a função massa de probabilidade de $X$ pode ser dada por:
+\begin{align*}
+    p(x) = \Prob(X = x) &= \begin{cases}
+        1 - \theta&,\ \text{se } x = 0, \\
+        \theta    &,\ \text{se } x = 1.
+    \end{cases}
+\end{align*}
+
+De outra forma:
+\begin{align}
+    p(x) = \Prob(X = x) &= \theta^x(1 - \theta)^{1-x},\ x \in \{0, 1\}.
+\end{align}
+
+Sua média é (\cref{eq:ch02-esperança-discreta}):
+\begin{align*}
+    \Expected(X) &= \sum_x x\cdot p(x) \\
+    & = 0 \cdot(1-\theta) + 1\cdot\theta \\
+    &= \theta.
+\end{align*}
+
+Note que, para $k = 1, 2, \cdots$ (\cref{eq:ch02-def-momento})
+\begin{align*}
+    \Expected(X^k) &= \sum_x x^k \cdot p(x) \\
+    & = 0^k \cdot(1-\theta) + 1^k\cdot\theta \\
+    &= \theta.
+\end{align*}
+
+Com isto, obtemos:
+\begin{align*}
+    \sigma^2 = \Var(X) &= \Expected(X^2) - \{\Expected(X)\}^2 \\
+    &= \theta - \theta^2 \\
+    &= \theta(1-\theta).
+\end{align*}
+
+\begin{obs}
+    Note que a variância $\sigma^2$ é máxima quando $\theta = \frac{1}{2}$.
+    
+    \begin{center}
+        \begin{tikzpicture}[declare function={f(\x)=\x*(1-\x);}]
+            \begin{axis}[
+                unbounded coords=jump,
+                grid=major,
+                major grid style={dashed},
+                axis x line=middle,
+                axis y line=middle,
+                xmin=-.5, xmax=1.5,
+                ymin=0, ymax=1/3,
+                xtick={0, 1/2, 1},
+                ytick={1/4},
+                xticklabels={0, $\frac{1}{2}$, $1$},
+                yticklabels={$\frac{1}{4}$},
+                xlabel={$\theta$},
+                ylabel={$\sigma^2$},
+                y label style={anchor=south},
+                x label style={anchor=west},
+            ]
+            
+            \addplot[
+                ultra thick,
+                samples=100,
+                domain=0:1,
+                blue]
+                {f(x)};
+    
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+\end{obs}
+
+\subsection{Binomial}
+
+Um experimento de Bernoulli (sucesso ou falha) é repetido $n$ vezes
+$(n \ge 1)$ de forma independente, cada um com a mesma probabilidade
+de sucesso (igual a $\theta$).
+
+A \va\ $X$ representa o número de sucessos nas $n$ vezes.
+
+Notar que $X \in \{0, 1, \cdots, n\}$.
+
+Considere $X=k$, $k \in \{0, 1, \cdots, n\}$.Isto significa a ocorrência
+de $k$ sucessos e $n-k$ falhas.
+
+Por causa da independência, uma sequência de $k$ sucessos e $n-k$ falhas
+tem probabilidade igual a
+\begin{align*}
+    \theta^k (1-\theta)^{n-k}
+\end{align*}
+
+Existem $\binom{n}{k}$ formas diferentes de obter $k$ sucessos e $n-k$ falhas.
+Portanto:
+\begin{align}
+    p(k) = \Prob(X = k) &= \binom{n}{k} \theta^k (1-\theta)^{n-k},\
+    k \in \{0, 1, \cdots, n\}.
+\end{align}
+
+Considere $Y_i$ como sendo o resultado do i-ésimo experimento de Bernoulli,
+ou seja, $Y_i \in \{0,1\}$, com $i=1,\cdots,n$. Qual é a relação
+entre $(Y_1,\cdots,Y_n)$ e $X$?
+
+Temos $X = Y_1 + Y_2+\cdots+Y_n$. Portanto:
+\begin{align*}
+    \mu = \Expected(X) &= \Expected(Y_1 + Y_2+\cdots+Y_n) \\
+    &= \sum_{i=1}^n \Expected(Y_i) \\
+    &= n\theta
+\end{align*}
+e
+\begin{align*}
+    \sigma^2 = \Var(X) &= \Var(Y_1 + Y_2+\cdots+Y_n) \\
+    &\overset{\text{indep.}}{=} \sum_{i=1}^n \Var(Y_i) \\
+    &= n\theta(1-\theta)
+\end{align*}
+
+Na distribuição binomial, o número de experimentos ($n$) e
+a probabilidade de sucesso ($\theta$) são chamados de \textbf{parâmetros}.
+
+\begin{definition}
+    Uma \va\ $X$ discreta tem distribuição simétrica em relação
+    a um valor $a$ se $p(x - a) = p(x + a)$ para todo $x$.
+\end{definition}
+
+\begin{property}
+    A distribuição binomial é simétrica se $\theta = \frac{1}{2}$.
+\end{property}
+
+\begin{definition}
+    A função piso de um valor $b \in \R$ é definida como
+    o maior inteiro menor ou igual a $b$
+
+    \begin{notation}
+        $\floor*{b}$
+    \end{notation}
+    \begin{example}
+        \begin{enumerate}[label=(\alph*)]
+            \item $\floor*{3.1} = 3$
+            \item $\floor*{3.9} = 3$
+        \end{enumerate}
+    \end{example}
+\end{definition}
+
+A moda da distribuição binomial é
+\begin{align*}
+    x_m &= \begin{cases}
+        \floor{(n+1)\theta},\ 
+        \text{se $(n+1)\theta$ não é inteiro}, \\
+        (n+1)\theta-1\text{ e }(n+1)\theta,\ 
+        \text{se }(n+1)\theta \in \{1,\cdots,n\}.
+    \end{cases}
+\end{align*}
+
+\begin{example}
+    $n = 9$ e $\theta = 0.6$.
+    Temos $(n+1)\theta = 6 \in \Z$.
+    Logo, as modas são 5 e 6.
+\end{example}
+
+\begin{example}
+    $n = 9$ e $\theta = 0.65$.
+    Temos $(n+1)\theta = 6.5 \notin \Z$.
+    Logo, a moda é $\floor{6.5} =6$.
+\end{example}
+
+\begin{theorem}[Teorema Binomial]
+    Seja $n$ um inteiro não negativo. Temos:
+    \begin{align}
+        (x + y)^n &= \sum_{j=0}^n \binom{n}{j} x^j y^{n-j}
+        \label{eq:ch06-theo-binom}
+    \end{align}
+\end{theorem}
+
+A função geradora de momentos (\cref{eq:ch02-fgm}) é
+\begin{align*}
+    \phi_X(t) &= \Expected(\e^{tX}) \\
+    &= \sum_{j=0}^n \e^{tj} \Prob(X=j) \\
+    &= \sum_{j=0}^n \e^{tj} \binom{n}{j} \theta^j (1-\theta)^{n-j} \\
+    &= \sum_{j=0}^n \binom{n}{j} (\theta \e^{t})^j (1-\theta)^{n-j} \\
+    &\overset{\text{\cref{eq:ch06-theo-binom}}}{=}
+        (1-\theta+\theta \e^{t})^n,\ t\in\R
+\end{align*}
